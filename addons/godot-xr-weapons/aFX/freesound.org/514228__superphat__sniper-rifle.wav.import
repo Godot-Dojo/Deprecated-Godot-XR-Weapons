@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/514228__superphat__sniper-rifle.wav-7e148c4cd268efae9a110d811796507c.sample"
+
+[deps]
+
+source_file="res://addons/godot-xr-weapons/aFX/freesound.org/514228__superphat__sniper-rifle.wav"
+dest_files=[ "res://.import/514228__superphat__sniper-rifle.wav-7e148c4cd268efae9a110d811796507c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/slide.ogg-7b40c4b3bca4ab85f5c9810ca8303f7d.oggstr"
+
+[deps]
+
+source_file="res://addons/godot-xr-weapons/aFX/opengameart/slide.ogg"
+dest_files=[ "res://.import/slide.ogg-7b40c4b3bca4ab85f5c9810ca8303f7d.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

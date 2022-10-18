@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot-xr-weapons/scripts/firearms/firearm_aFX.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-xr-weapons/aFX/opengameart/slide.ogg" type="AudioStream" id=2]
+[ext_resource path="res://addons/godot-xr-weapons/aFX/freesound.org/514228__superphat__sniper-rifle.wav" type="AudioStream" id=3]
+[ext_resource path="res://addons/godot-xr-weapons/aFX/opengameart/click.ogg" type="AudioStream" id=4]
+
+[node name="firearm_aFX" type="Spatial"]
+script = ExtResource( 1 )
+ShotAfxPath = NodePath("GunSound")
+ClickAfxPath = NodePath("ClickSound")
+SlideAfxPath = NodePath("SlideSound")
+
+[node name="GunSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 3 )
+
+[node name="ClickSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 4 )
+
+[node name="SlideSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource( 2 )
