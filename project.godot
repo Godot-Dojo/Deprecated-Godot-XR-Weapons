@@ -19,17 +19,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-weapons/scripts/AudioFX.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "FirearmProjectileSpawner",
 "language": "GDScript",
 "path": "res://addons/godot-xr-weapons/scripts/firearms/firearm_projectile_spawner.gd"
 }, {
-"base": "Reference",
+"base": "XRToolsPickable",
 "class": "FirearmSlide",
 "language": "GDScript",
 "path": "res://addons/godot-xr-weapons/scripts/firearms/firearm_slide.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "FirearmTriggerRotator",
 "language": "GDScript",
 "path": "res://addons/godot-xr-weapons/scripts/firearms/firearm_trigger_rotator.gd"
@@ -84,12 +84,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot-xr-tools/functions/Function_Pickup.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Function_Pickup_Avatar_Precise_Throwing",
 "language": "GDScript",
 "path": "res://addons/godot-xr-avatar/scripts/Function_Pickup_Avatar_Precise_Throwing.gd"
 }, {
-"base": "Reference",
+"base": "Spatial",
 "class": "Function_Pickup_Precise_Throwing",
 "language": "GDScript",
 "path": "res://addons/godot-xr-weapons/functions/Function_pickup_precise_throwing.gd"
@@ -285,8 +285,8 @@ _global_script_class_icons={
 "Function_Jump": "",
 "Function_JumpDetect": "",
 "Function_Pickup": "res://addons/godot-xr-tools/editor/icons/XRToolsFunction.svg",
-"Function_Pickup_Avatar_Precise_Throwing": "",
-"Function_Pickup_Precise_Throwing": "",
+"Function_Pickup_Avatar_Precise_Throwing": "res://addons/godot-xr-tools/editor/icons/XRToolsFunction.svg",
+"Function_Pickup_Precise_Throwing": "res://addons/godot-xr-tools/editor/icons/XRToolsFunction.svg",
 "Function_TurnMovement": "",
 "Function_WindMovement": "",
 "GroundPhysics": "",
@@ -326,12 +326,21 @@ _global_script_class_icons={
 
 [application]
 
-config/name="XR-Weapons"
+config/name="Godot-XR-Weapons"
+run/main_scene="res://dojo_demo/weapons_demo/Weapons_Demo.tscn"
 config/icon="res://icon.png"
 
 [audio]
 
 enable_audio_input=true
+
+[autoload]
+
+Draw3d="*res://dojo_core/utility/Draw3d.gd"
+
+[display]
+
+window/vsync/use_vsync=false
 
 [editor_plugins]
 
@@ -347,8 +356,11 @@ common/drop_mouse_on_gui_input_disabled=true
 
 [physics]
 
+common/physics_fps=72
 common/enable_pause_aware_picking=true
+3d/physics_engine="Bullet"
 
 [rendering]
 
 quality/filters/msaa=6
+environment/default_environment="res://default_env.tres"

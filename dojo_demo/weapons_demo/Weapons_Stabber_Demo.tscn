@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://default_env.tres" type="Environment" id=1]
+[ext_resource path="res://addons/godot-xr-avatar/scenes/requires_xr_weapons/avatar_weapons.tscn" type="PackedScene" id=2]
+[ext_resource path="res://xr_weapons/melee/Stabber_Dagger.tscn" type="PackedScene" id=4]
+[ext_resource path="res://dojo_core/scenes/DojoWithColliders.tscn" type="PackedScene" id=7]
+
+[node name="Weapons_Stabber_Demo" type="Spatial"]
+
+[node name="avatar_player" parent="." instance=ExtResource( 2 )]
+
+[node name="Dojo" parent="." instance=ExtResource( 7 )]
+
+[node name="Stabber_Dagger" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49642, 0.528664, -1.90237 )
+
+[node name="Stabber_Dagger2" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.369058, 0.528664, -1.90237 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource( 1 )
