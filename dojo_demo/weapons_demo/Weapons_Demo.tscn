@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://addons/godot-xr-avatar/scenes/avatar_male.tscn" type="PackedScene" id=1]
+[ext_resource path="res://xr_weapons/melee/Stabber_Dagger.tscn" type="PackedScene" id=2]
 [ext_resource path="res://xr_weapons/firearms/Gun_Pistol_Automatic.tscn" type="PackedScene" id=10]
 [ext_resource path="res://xr_weapons/firearms/Mag_9mm.tscn" type="PackedScene" id=11]
 [ext_resource path="res://dojo_core/scenes/DojoWithColliders.tscn" type="PackedScene" id=14]
@@ -37,3 +38,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.22673, 0.305481, 1.37276 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 24 )
+
+[node name="Stabber_Dagger" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56023, 0.491497, 1.0535 )
