@@ -44,7 +44,7 @@ func create_joint(collider,collision_mormal,collision_point):
 	joint = SliderJoint.new()
 	joint.global_transform.origin = collision_point
 	joint.transform = look_at_with_x(joint.transform,collision_mormal,Vector3.UP)
-	debug.global_transform = joint.transform
+	joint_debug.global_transform = joint.transform
 	joint.set("nodes/node_a",collider.get_path())
 	joint.set("nodes/node_b",get_path())
 	joint.set("linear_limit/upper_distance",0)
