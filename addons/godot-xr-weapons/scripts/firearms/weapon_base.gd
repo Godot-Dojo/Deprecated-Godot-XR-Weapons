@@ -16,9 +16,6 @@ onready var _muzzleflash: Particles = $FirearmProjectileSpawner/MuzzleParticles
 onready var _smoke: Particles = $FirearmProjectileSpawner/SmokeParticles
 var can_shoot : bool = true
 var magazine_ammo : int = 0
-var grabbed_two_handed : bool = false
-var grabbed_two_handed_spatial : Spatial = null
-var second_hand_controller : ARVRController = null
 
 # initial transform when grabbed -> used for recoil recovery
 var grabbed_transform: Transform = Transform(Basis.IDENTITY, Vector3.ZERO)
@@ -28,23 +25,24 @@ export(float, 0, 1) var recoil_recover_speed = 0.2
 export var recoil_rotation_offset: Vector3 = Vector3(0.3, 0, 0)
 # position offset to be applied to recoil -> best between 0-1
 export var recoil_position_offset: Vector3 = Vector3(0, 0, 0.1)
+# multiplier for recoil when two handed
 
 signal shoot
 signal ammo_depleted
-signal grabbed_two_handed(weapon, controller, grab_point)
-signal released_two_handed(weapon, controller, grab_point)
 
 func _ready(): 
 	hold_method = HoldMethod.REMOTE_TRANSFORM
 	connect("picked_up", self, "picked_up")
+	
+	
 
 func action():
 	if can_shoot:
 		emit_signal("action_pressed", self)
 		# Get audio node
-		var audio = owner.get_node("{}/audio".format([name], "{}"));
+		#var audio = owner.get_node("{}/audio".format([name], "{}"));
 		# Get effects node
-		var effect = owner.get_node("{}/effect".format([name], "{}"));
+		#var effect = owner.get_node("{}/effect".format([name], "{}"));
 
 		# If shot timer has expired, and either magazine clip has bullets or gun has "one in the chamber", allow shooting
 		if magazine_ammo >= 1 or current_ammo >= 1:
@@ -62,13 +60,15 @@ func action():
 				_muzzleflash.restart()
 			if _smoke != null:
 				_smoke.restart()
-			$GunSound.play(.4)
+			if get_node_or_null("GunSound")!= null:
+				$GunSound.play(.4)
 			recoil()
 			emit_signal("shoot")
 			
 			if current_ammo <= 0:
 				emit_signal("ammo_depleted")
-				$ClickSound.play()
+				if get_node_or_null("ClickSound") != null:
+					$ClickSound.play()
 				
 		if current_ammo <= 0:
 			if get_node_or_null("ClickSound")!=null:
@@ -77,19 +77,20 @@ func action():
 		can_shoot = false
 		$ShotTimer.wait_time = shot_timer_time
 		$ShotTimer.start()
+
 func recoil(): 
 	# apply recoil transform 
 	_remote_transform.transform = Transform(
 		_remote_transform.transform.basis * Basis(recoil_rotation_offset),
 		(_remote_transform.transform.basis.z.normalized() * recoil_position_offset)
 	)
-
 func recoil_recover(): 
 	# lerp transform to grabbed transform 
+	
 	_remote_transform.transform = _remote_transform.transform.interpolate_with(
 		grabbed_transform, recoil_recover_speed
 	)
-
+	
 #When shot timer expires, allow shot again
 func _on_ShotTimer_timeout():
 	if current_ammo <= 0:
@@ -100,6 +101,8 @@ func _on_ShotTimer_timeout():
 func _on_Mag_Zone_has_picked_up(what):
 	if what.get_node_or_null("Ammo") != null:
 		magazine_ammo = what.get_node_or_null("Ammo").ammo
+		if get_node_or_null("SlideSound") != null:
+			$SlideSound.play()
 		
 func _on_Mag_Zone_has_dropped():
 	if current_ammo > 1:
@@ -131,26 +134,13 @@ func _process(delta):
 		if picked_up_by != null and by_controller != null:
 			if get_fire_input() > 0.5:
 				action()
-				
-				
-	if grabbed_two_handed == true:
-		emit_signal("grabbed_two_handed", self, second_hand_controller, grabbed_two_handed_spatial)
-	
+							
 				
 func get_fire_input():
 	return by_controller.get_joystick_axis(JOY_VR_ANALOG_TRIGGER)
+	
 	
 func picked_up(s): 
 	grabbed_transform = _remote_transform.transform
 
 
-func _on_secondary_grab_area_grabbed(grab_area, grip_point, by_controller):
-	grabbed_two_handed = true
-	grabbed_two_handed_spatial = grip_point
-	second_hand_controller =  by_controller
-
-func _on_secondary_grab_area_released(grab_area, grip_point, by_controller):
-	grabbed_two_handed = false
-	grabbed_two_handed_spatial = null
-	second_hand_controller = by_controller
-	emit_signal("released_two_handed", self, second_hand_controller, grip_point)
