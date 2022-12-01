@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://xr_weapons/materials/holo_sight_mat.tres" type="Material" id=1]
+[ext_resource path="res://addons/godot-xr-tools/objects/Object_pickable.gd" type="Script" id=2]
+[ext_resource path="res://xr_weapons/models/scope_holo_casing/Holo_sight_casing.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://xr_weapons/materials/gun_boublebarrelshotgun_mat.tres" type="Material" id=4]
+
+[sub_resource type="QuadMesh" id=34]
+
+[sub_resource type="ConvexPolygonShape" id=35]
+points = PoolVector3Array( -0.0213061, -0.0186, -0.0528, -0.0213061, -0.0116042, -0.0528, 0.0212998, -0.0186, -0.0528, -0.0213061, -0.0186, 0.041195, -0.0324, -0.0153062, 0.0332958, -0.016403, 0.00339369, -0.0473033, 0.0212998, -0.0116042, -0.0528, -0.0324, 0.0533, 0.0332958, 0.0324, -0.0153062, 0.0332958, 0.0212998, -0.0186, 0.041195, -0.0324, -0.0153062, 0.0427, 0.0163966, 0.00339369, -0.0473033, 0.0324, 0.0533, 0.0332958, -0.0324, 0.0533, 0.0427, 0.0324, -0.0153062, 0.0427, 0.0324, 0.0533, 0.0427 )
+
+[node name="Scope_holo" type="RigidBody" groups=["Scope", "weapons"]]
+collision_mask = 131073
+script = ExtResource( 2 )
+
+[node name="PickupCenter" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.34202, 0.939693, 0, -0.939693, -0.34202, 0, -0.025, 0.025 )
+
+[node name="glass" type="MeshInstance" parent="."]
+transform = Transform( 0.0631335, 0, 0, 0, 0.0631335, 0, 0, 0, 0.0631335, 0, 0, 0.0376553 )
+mesh = SubResource( 34 )
+material/0 = ExtResource( 1 )
+
+[node name="case" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0197465, 0 )
+mesh = ExtResource( 3 )
+material/0 = ExtResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0197465, 0 )
+shape = SubResource( 35 )
